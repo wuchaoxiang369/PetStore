@@ -1,0 +1,190 @@
+@CHARSET "UTF-8";
+/**
+
+* @version 0.5.9 20080129 JS
+* @version 0.5.8 20080124 JS
+* @version 0.5.7 20080114 JS
+* @version 0.5.6 20080109 JS
+* @version 0.5.4 20071231 JS
+* @version 0.5.3 20071228 JS
+* @version 0.5.2 20071227 JS
+* @version 0.5.1 20071217 JS
+* @version 0.5.0 20071212 JS
+* light color : #BBBBBB;
+* dark grey   : #777777;
+* background  : #2b2829;
+* green       : #828C57;
+* orange	  : #FB9E3A;
+* blue 		  : #89A5BB;
+*/
+
+.left {float: left;}
+.right {float: right !important;}
+.hidden-text { text-indent: -31337px; font-size: 1px; }
+.float-catch {clear: both;}
+.neg-tpmargin {margin-top: -10px;}
+.upper-case {text-transform:uppercase;}
+.link {margin: 0px 0px -3px 1px;}
+.hidden { display: none !important; }
+.no-border { border: none !important; }
+.li-drop {
+	margin: 0;
+	padding-top: 2px;
+}
+.margfix {
+	height:.1px;
+}
+
+img {
+	border: none;
+}
+
+html {
+	text-align: left;
+	background-color: #2b2829; /* #393536; */
+	color: white;
+	font: 12px "Trebuchet MS",Tahoma,Arial;
+	line-height: 1.8em;
+	
+}
+
+h2 {
+	color: #828C57;
+	font-size: 3.5em;
+	line-height: 1em;
+}
+
+h4 {
+	margin-bottom: 0px;
+	line-height:1.3em;
+}
+
+#main-column h4 {
+	font-size: 1.5em;
+	color: white;
+}
+
+p {	
+	color:#807E7F;
+	line-height: 1.5em;	
+	padding-bottom: 10px;
+	font-size: 1.1em;
+}
+
+
+
+body {
+	margin: 0px;	
+}
+
+strong {
+	font-weight: bold;
+	color: #eee;
+}
+
+ul {
+	margin: 0;
+}
+
+a, a:visited, a:link, a:active {
+	text-decoration: none;
+	color: #828C57;
+}
+
+a:hover {
+	color: white;
+}
+
+#content {
+	margin: 0 auto;
+	width: 77em;
+}
+
+.fake-hr {
+	height: 1px;
+	background-color: #555;
+	display: none;
+}
+
+hr { 
+	height: 0px; 
+	border: 1px solid #555; 
+	border-width: 1px 0px 0px 0px; 
+	margin: 1em 0em; 
+	}
+	
+li {
+	color: #666;
+}	
+
+#footer {
+	width: 77em;
+	margin: 25px auto 40px;
+}
+
+#footer ul {
+	margin: 0px;
+	padding: 0px;
+	text-align: center;
+	
+}
+
+#footer ul li {
+	list-style: none;
+}
+
+#footer a {
+	color: #666;
+}
+
+#footer a:hover {
+	color: #bbb;
+}
+
+#footer .divider {
+	clear: both;
+}
+
+#footer .divider ul li {
+	display: inline;
+	padding: 0px 15px 0px 0px;
+}
+
+
+
+#rights {
+	
+}
+
+.selected {
+	background-position:right top !important;
+}
+
+
+.subnav {
+	height: 30px;
+	border: 1px;
+}
+
+.subnav ul {
+	margin: 0;
+	padding: 0;
+}
+
+.subnav a:hover {
+	color: #aaaaaa;
+}
+
+.subnav ul li{
+	border-bottom: 1px solid #444444;
+	display: inline;
+	float: left;
+	list-style: none;
+	margin: 0;
+	padding: 0 1em;
+}
+
+#sharethis_0 .stico_default {
+	background-image: url(/images/share-icon-16x16.gif) !important;
+	background-repeat: none;
+}
