@@ -1,0 +1,40 @@
+/*
+  有关Hibernate的内容是因为项目一开始用的Hibernate操作数据库。后来学习Mybatis时改成了Mybatis
+*/
+1.注意 Spring 的静态文件要走服务器自己的servlet（要做spring.xml中配置：<mvc:default-servlet-handler>）；所以静态文件可以直接放在webapp下的 static 文件夹中。而动态文件为了安全，一般放在WEB-INF下 ftl 中
+2.注意融合spring和mybatis时 jar版本小心冲突 
+3.@Autowired
+4.SpringMVC的数据验证 spring4 以后用的是JSR-349框架
+  需要配置一个messages.properties
+  不是用到 HTML的form表单了因为没法校验   
+  需要在freemarker用到Spring的<@form.form commandName="user">
+  需要添加Spring的JspTaglibs
+
+ <#assign spring=JspTaglibs["http://www.springframework.org/tags"] />
+ <#assign form=JspTaglibs["http://www.springframework.org/tags/form"] />
+ 注意Controller层校验的写法
+5.根据产品编号找到动物编号时。因为动物会有不一样。所以同一个产品编号对应不同的动物编号。一对多关系。
+   用到了Mybatis的关系映射 collection 和 association
+6.注意Hibernate能主从表同时插入删除操作。
+ 但是mybatis需要自己手写从表的插入删除	例如 account 和 profile表
+ 一对多关系  profile 和 category 表 
+ 需要修改Mapping中的关系映射
+
+profile 和 account 设置的是username  不是 id
+
+7.一定注意表与表直接的映射关系  需要用到mybatis配置操作
+
+8.注意学会使用SpringMVC的 窄化
+
+9.使用存储过程对购物车做增删改查（很重要）
+
+10.Mybatis mapping配置文件一定注意对应关系，千万不能写错
+
+11.遇到问题：添加到购物车存储过程 @itemid 传值传不进去
+因为一开始赋值的时候，值为‘’不是null。但是判断的时候用的是null判断
+
+12.ModelMap.put() 和 map.addAttribute()的区别是。addAttribute()会判断键是否为空，若为空则抛出异常 而put允许为空
+
+13.一开始去掉了itemid用item代替。但是最后查询没法显示出每个宠物的数量，还是得加上
+
+14.运用存储过程对Cart进行 addCart  delCart updateCart 注意在CartMapping.xml中调用存储过程的写法  <![CDATA[  call procedure_name() ]]>
