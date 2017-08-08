@@ -1,0 +1,80 @@
+@CHARSET "UTF-8";
+html {
+
+	background: url(../images/birds.gif) center 70px no-repeat;
+}
+
+#content {
+	width: 100%;
+}
+
+h2 {
+	text-align: center;
+	color: #3b3738;	
+	margin: 0px;
+	padding: 20px 0px 10px;
+}
+
+h3 {
+	color: #FFBF00;
+	font-size: 1.6em;
+	margin: 0px;
+	padding: 10px 0px 5px;
+}
+
+#birds {
+	height: 350px;
+}
+
+#birds h3 {
+	text-align: center;
+	margin: 0px;
+	padding: 0px;
+	color: #828C57;
+}
+
+#linking {
+	background-color: #828C57;
+	padding: 10px 0 20px 100px;
+	
+	
+}
+
+#linking p {
+	color: white;
+}
+
+#linking a {
+	color: white;
+}
+
+#linking a:hover {
+	text-decoration: underline;
+}
+
+
+.width-container {
+	width:77em;
+	margin: 0px auto !important;
+}
+
+.column {
+	float: left;
+	width: 44%;
+	margin-left: 0px;
+}
+
+#linking ul {
+	padding-left: 25px;
+}
+
+#linking ul li {
+	font-size: 1.1em;
+	list-style: none;
+	color: white;
+}
+
+#footer ul {
+	float: none;
+	text-align: center !important;
+}

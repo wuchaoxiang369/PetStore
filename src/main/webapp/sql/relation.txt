@@ -1,0 +1,11 @@
+account : 基本账户
+category : 宠物的种类
+product : 具体的某类宠物细分
+item : 具体的某类中的某种宠物细分
+一对多：category--->product--->item
+类似于：猫--->各种不同种类的猫--->每个种类的猫大小又不一样
+item 和  cart 是多对一关系  外键是 itemid
+pro_addCart() 购物车添加宠物
+pro_queryCart() 查询出每个订单下的所有宠物
+pro_delCart() 删除购物车
+pro_updateCart() 更新购物车

@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wcx.dao.ItemMapper" >
+  <resultMap id="BaseResultMap" type="com.wcx.model.Item" >
+  	<id column="itemid" property="itemid" jdbcType="VARCHAR" />
+    <result column="listprice" property="listprice" jdbcType="DECIMAL" />
+    <result column="unitcost" property="unitcost" jdbcType="DECIMAL" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="attr1" property="attr1" jdbcType="VARCHAR" />
+    <result column="attr2" property="attr2" jdbcType="VARCHAR" />
+    <result column="attr3" property="attr3" jdbcType="VARCHAR" />
+    <result column="attr4" property="attr4" jdbcType="VARCHAR" />
+    <result column="attr5" property="attr5" jdbcType="VARCHAR" />
+    
+    <!-- product表 和 item表 是一对多关系 外键是productid -->
+    <association property="product" column="productid" select="selectProductByItem">
+    </association>
+    
+    <!-- cart 表 和 item表 是 一对多关系 -->
+<!--     <association property="cart" column="itemid" select="selectCartByItem"> -->
+<!--     </association> -->
+    
+  </resultMap>
+  
+  <!-- 实现selectProductByItem方法 -->
+  <select id="selectProductByItem" resultMap="com.wcx.dao.ProductMapper.BaseResultMap">
+  	select *
+  	from product
+  	where productid = #{product.productid,jdbcType=VARCHAR}
+  </select>
+  
+  <!-- 实现selectCartByItem方法 -->
+<!--   <select id="selectCartByItem" resultMap="com.wcx.dao.CartMapper.BaseResultMap"> -->
+<!--   	select * -->
+<!--   	from cart -->
+<!--   	where itemid = #{itemid,jdbcType=INTEGER} -->
+<!--   </select> -->
+  
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    itemid, productid, listprice, unitcost, status, attr1, attr2, attr3, attr4, attr5
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.wcx.model.ItemExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from item
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from item
+    where itemid = #{itemid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from item
+    where itemid = #{itemid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.wcx.model.ItemExample" >
+    delete from item
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.wcx.model.Item" >
+    insert into item (itemid, productid, listprice, 
+      unitcost, status, attr1, 
+      attr2, attr3, attr4, 
+      attr5)
+    values (#{itemid,jdbcType=VARCHAR}, #{product.productid,jdbcType=VARCHAR}, #{listprice,jdbcType=DECIMAL}, 
+      #{unitcost,jdbcType=DECIMAL}, #{status,jdbcType=VARCHAR}, #{attr1,jdbcType=VARCHAR}, 
+      #{attr2,jdbcType=VARCHAR}, #{attr3,jdbcType=VARCHAR}, #{attr4,jdbcType=VARCHAR}, 
+      #{attr5,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wcx.model.Item" >
+    insert into item
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="itemid != null" >
+        itemid,
+      </if>
+      <if test="product.productid != null" >
+        productid,
+      </if>
+      <if test="listprice != null" >
+        listprice,
+      </if>
+      <if test="unitcost != null" >
+        unitcost,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="attr1 != null" >
+        attr1,
+      </if>
+      <if test="attr2 != null" >
+        attr2,
+      </if>
+      <if test="attr3 != null" >
+        attr3,
+      </if>
+      <if test="attr4 != null" >
+        attr4,
+      </if>
+      <if test="attr5 != null" >
+        attr5,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="itemid != null" >
+        #{itemid,jdbcType=VARCHAR},
+      </if>
+      <if test="product.productid != null" >
+        #{product.productid,jdbcType=VARCHAR},
+      </if>
+      <if test="listprice != null" >
+        #{listprice,jdbcType=DECIMAL},
+      </if>
+      <if test="unitcost != null" >
+        #{unitcost,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="attr1 != null" >
+        #{attr1,jdbcType=VARCHAR},
+      </if>
+      <if test="attr2 != null" >
+        #{attr2,jdbcType=VARCHAR},
+      </if>
+      <if test="attr3 != null" >
+        #{attr3,jdbcType=VARCHAR},
+      </if>
+      <if test="attr4 != null" >
+        #{attr4,jdbcType=VARCHAR},
+      </if>
+      <if test="attr5 != null" >
+        #{attr5,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.wcx.model.ItemExample" resultType="java.lang.Integer" >
+    select count(*) from item
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update item
+    <set >
+      <if test="record.itemid != null" >
+        itemid = #{record.itemid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.product.productid != null" >
+        productid = #{record.product.productid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.listprice != null" >
+        listprice = #{record.listprice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.unitcost != null" >
+        unitcost = #{record.unitcost,jdbcType=DECIMAL},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attr1 != null" >
+        attr1 = #{record.attr1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attr2 != null" >
+        attr2 = #{record.attr2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attr3 != null" >
+        attr3 = #{record.attr3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attr4 != null" >
+        attr4 = #{record.attr4,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attr5 != null" >
+        attr5 = #{record.attr5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update item
+    set itemid = #{record.itemid,jdbcType=VARCHAR},
+      productid = #{record.product.productid,jdbcType=VARCHAR},
+      listprice = #{record.listprice,jdbcType=DECIMAL},
+      unitcost = #{record.unitcost,jdbcType=DECIMAL},
+      status = #{record.status,jdbcType=VARCHAR},
+      attr1 = #{record.attr1,jdbcType=VARCHAR},
+      attr2 = #{record.attr2,jdbcType=VARCHAR},
+      attr3 = #{record.attr3,jdbcType=VARCHAR},
+      attr4 = #{record.attr4,jdbcType=VARCHAR},
+      attr5 = #{record.attr5,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wcx.model.Item" >
+    update item
+    <set >
+      <if test="product.productid != null" >
+        productid = #{product.productid,jdbcType=VARCHAR},
+      </if>
+      <if test="listprice != null" >
+        listprice = #{listprice,jdbcType=DECIMAL},
+      </if>
+      <if test="unitcost != null" >
+        unitcost = #{unitcost,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="attr1 != null" >
+        attr1 = #{attr1,jdbcType=VARCHAR},
+      </if>
+      <if test="attr2 != null" >
+        attr2 = #{attr2,jdbcType=VARCHAR},
+      </if>
+      <if test="attr3 != null" >
+        attr3 = #{attr3,jdbcType=VARCHAR},
+      </if>
+      <if test="attr4 != null" >
+        attr4 = #{attr4,jdbcType=VARCHAR},
+      </if>
+      <if test="attr5 != null" >
+        attr5 = #{attr5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where itemid = #{itemid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wcx.model.Item" >
+    update item
+    set productid = #{product.productid,jdbcType=VARCHAR},
+      listprice = #{listprice,jdbcType=DECIMAL},
+      unitcost = #{unitcost,jdbcType=DECIMAL},
+      status = #{status,jdbcType=VARCHAR},
+      attr1 = #{attr1,jdbcType=VARCHAR},
+      attr2 = #{attr2,jdbcType=VARCHAR},
+      attr3 = #{attr3,jdbcType=VARCHAR},
+      attr4 = #{attr4,jdbcType=VARCHAR},
+      attr5 = #{attr5,jdbcType=VARCHAR}
+    where itemid = #{itemid,jdbcType=VARCHAR}
+  </update>
+</mapper>
