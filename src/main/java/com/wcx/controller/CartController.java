@@ -18,19 +18,15 @@ import com.wcx.model.Item;
 import com.wcx.model.Orders;
 import com.wcx.service.ICartService;
 
+import javax.annotation.Resource;
+
 @Controller
 @RequestMapping("/cart")
 @SessionAttributes(value={"commitError"})
 public class CartController {
-	
-	private ICartService service;
-	public ICartService getService() {
-		return service;
-	}
-	@Autowired
-	public void setService(ICartService service) {
-		this.service = service;
-	}
+
+	@Resource
+	private ICartService cartService;
 
 	@RequestMapping(value={"/add/itemid/{itemid}/quantity/{quantity}"})
 	public String addCart(@PathVariable String itemid,@PathVariable int quantity
@@ -38,7 +34,7 @@ public class CartController {
 		Map map1 = new HashMap();
 		map1.put("in_itemid", itemid);
 		map1.put("in_quantity",quantity);		
-		List<Cart> cartList = service.addCart(map1);
+		List<Cart> cartList = cartService.addCart(map1);
 		map.put("cartList", cartList);
 		return "/shop/addItemToCart.ftl";
 	}
@@ -49,7 +45,7 @@ public class CartController {
 		Map map1 = new HashMap();
 		map1.put("in_itemid", itemid);
 		map1.put("in_orderid",orderid);		
-		List<Cart> cartList = service.delCart(map1);
+		List<Cart> cartList = cartService.delCart(map1);
 		map.put("cartList", cartList);
 		return "/shop/addItemToCart.ftl";
 	}
@@ -68,11 +64,11 @@ public class CartController {
 			m.put("in_itemid", itemid.get(i));
 			m.put("in_orderid", orderid.get(i));
 			m.put("in_quantity",quantity.get(i));
-			service.updateCart(m);
+			cartService.updateCart(m);
 		}
 		Map m1 = new HashMap();
 		m1.put("in_orderid",orderid.get(0));
-		List<Cart> cartList = service.queryCart(m1);
+		List<Cart> cartList = cartService.queryCart(m1);
 		map.put("cartList", cartList);
 		return "/shop/addItemToCart.ftl";
 	}
@@ -85,7 +81,7 @@ public class CartController {
 		order.setOrderid(orderid);
 		order.setTotalprice(new BigDecimal(total));
 		order.setOrderdate(new Date());
-		if(service.updateByPrimaryKey(order) >= 0){
+		if(cartService.updateByPrimaryKey(order) >= 0){
 			map.put("commitError", "订单提交成功，请继续购物");
 			return "/shop/main.ftl";
 		}else{

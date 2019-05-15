@@ -23,18 +23,17 @@ public class AccountServiceImpl implements IAccountService {
 	public AccountMapper getDao() {
 		return dao;
 	}
+
 	@Autowired
 	public void setDao(AccountMapper dao) {
 		this.dao = dao;
 	}
-	@Override
+
 	public Account selectByAccount_name_pwd(Account account) {
-		// TODO Auto-generated method stub
 		return dao.selectByAccount_name_pwd(account);
 	}
-	@Override
+
 	public int insert(Account record) {
-		// TODO Auto-generated method stub
 		Profile profile = record.getProfile();
 		if(dao.insert(record) > 0){
 			profile.setUsername(record.getUsername());

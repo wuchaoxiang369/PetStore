@@ -21,9 +21,7 @@ public class CategoryServiceImpl implements ICategoryService {
 		this.dao = dao;
 	}
 
-	@Override
 	public List<Category> selectByExample() {
-		// TODO Auto-generated method stub
 		CategoryExample c = new CategoryExample();
 		c.createCriteria().andCatidIsNotNull();
 		return dao.selectByExample(c);

@@ -21,9 +21,7 @@ public class ProductServiceImpl implements IProductService {
 		this.dao = dao;
 	}
 
-	@Override
 	public List<Product> selectByExample(String catid) {//根据catid查询动物
-		// TODO Auto-generated method stub
 		ProductExample example = new ProductExample();
 		example.createCriteria().andCatidEqualTo(catid);
 		return dao.selectByExample(example);

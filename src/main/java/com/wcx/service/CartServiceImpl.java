@@ -11,7 +11,7 @@ import com.wcx.dao.OrdersMapper;
 import com.wcx.model.Cart;
 import com.wcx.model.Orders;
 
-@Service
+@Service("cartService")
 public class CartServiceImpl implements ICartService {
 	private CartMapper dao;
 	private OrdersMapper odao;
@@ -32,29 +32,23 @@ public class CartServiceImpl implements ICartService {
 		this.dao = dao;
 	}
 
-	@Override
 	public List<Cart> addCart(Map map) {
-		// TODO Auto-generated method stub
 		return dao.addCart(map);
 	}
-	@Override
+
 	public List<Cart> delCart(Map map) {
-		// TODO Auto-generated method stub
 		return dao.delCart(map);
 	}
-	@Override
+
 	public List<Cart> updateCart(Map map) {
-		// TODO Auto-generated method stub
 		return dao.updateCart(map);
 	}
-	@Override
+
 	public List<Cart> queryCart(Map map) {
-		// TODO Auto-generated method stub
 		return dao.queryCart(map);
 	}
-	@Override
+
 	public int updateByPrimaryKey(Orders record) {
-		// TODO Auto-generated method stub
 		return odao.updateByPrimaryKey(record);
 	}
 

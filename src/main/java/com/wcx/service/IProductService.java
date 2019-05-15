@@ -1,9 +1,8 @@
 package com.wcx.service;
 
-import java.util.List;
-
 import com.wcx.model.Product;
-import com.wcx.model.ProductExample;
+
+import java.util.List;
 
 public interface IProductService {
 	List<Product> selectByExample(String catid);
